@@ -1,0 +1,26 @@
+spring:  application:    name: conversation-gateway
+server:
+  port: 9001
+eureka:  instance:    instance-id: conversation-gateway    appname: conversation-gateway
+    hostname: localhost  client:    service-url:      defaultZone: http://${eureka.instance.hostname}:9000/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+    healthcheck:      enabled: true
+zuul:
+  ignored-services:  - "*"  routes:    messenger:
+      path: /messenger/**
+      strip-prefix: true
+ribbon:  http:    client:      enabled: true  restclient:    enabled: true
+  okhttp:    enabled: true
+  eager-load:    enabled: false  eureka:    enabled: true
+
+logging:
+  level:
+    org.springframework.cloud.netflix.zuul: TRACE
+    org.springframework.cloud.netflix.ribbon: TRACE
+    org.springframework.http.server.reactive: DEBUG
+    org.springframework.web.reactive: DEBUG
+    reactor.ipc.netty: DEBUG
+    reactor.netty: DEBUG
+
+management:  endpoints:    web:      exposure:        include:        - '*'

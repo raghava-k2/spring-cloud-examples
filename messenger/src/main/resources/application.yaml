@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: messenger
+server:
+  port: 9002
+eureka:
+  instance:
+    instance-id: messenger
+    appname: messenger
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:9000/eureka/
+    healthcheck:
+      enabled: true
+    fetch-registry: true
+logging:
+  level:
+    org.springframework.web: DEBUG

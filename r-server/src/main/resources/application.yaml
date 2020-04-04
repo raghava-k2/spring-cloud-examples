@@ -1,0 +1,8 @@
+spring:  application:    name: r-server
+server:
+  port: 9000
+eureka:  instance:    appname: r-server
+    hostname: localhost
+  client:    service-url:      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/    register-with-eureka: false
+    fetch-registry: false
+    healthcheck:      enabled: true
