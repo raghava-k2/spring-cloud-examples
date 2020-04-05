@@ -1,17 +1,19 @@
 package com.kvr;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController()
+@RequestMapping("/api/v1")
 public class ExchangeMessageController {
 
-	@GetMapping("/api/v1/s1")
+	@GetMapping("/s1")
 	public String get() {
 		return "hello";
 	}
 	
-	@GetMapping("/api/v1/s2")
+	@GetMapping("/s2")
 	public String get2() {
 		return "hello2";
 	}
