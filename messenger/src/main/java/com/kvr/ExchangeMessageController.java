@@ -10,11 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kvr.model.User;
 
 @RestController()
-@RequestMapping("/api/v1")
+@RequestMapping(value = "/api/v1", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 public class ExchangeMessageController {
 
-	@RequestMapping(value = "/s1", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE,
-			MediaType.APPLICATION_XML_VALUE })
+	@RequestMapping(value = "/s1", method = RequestMethod.GET)
 	public User get() {
 		User user = new User();
 		user.setName("raghava");
@@ -22,8 +21,7 @@ public class ExchangeMessageController {
 		return user;
 	}
 
-	@RequestMapping(value = "/s2", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE,
-			MediaType.APPLICATION_XML_VALUE })
+	@RequestMapping(value = "/s2", method = RequestMethod.GET)
 	public User get2() {
 		User user = new User();
 		user.setName("raghava");

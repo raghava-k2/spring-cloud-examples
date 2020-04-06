@@ -20,5 +20,77 @@
 				"nextNodeName": "s10"
 			}
 		]
+	},{
+		"name": "s10",
+		"transitions": [
+			{
+				"type": "json",
+				"nextNodeName": "s1"
+			},
+			{
+				"type": "xml",
+				"nextNodeName": "s4"
+			}
+		]
+	},{
+		"name": "s4",
+		"transitions": [
+			{
+				"type": "both",
+				"nextNodeName": "s2"
+			}
+		]
+	},{
+		"name": "s2",
+		"transitions": [
+			{
+				"type": "both",
+				"nextNodeName": "s6"
+			}
+		]
+	},{
+		"name": "s6",
+		"transitions": [
+			{
+				"type": "json",
+				"nextNodeName": "s9"
+			},
+			{
+				"type": "xml",
+				"nextNodeName": "s8"
+			}
+		]
+	},{
+		"name": "s1",
+		"transitions": [
+			{
+				"type": "both",
+				"nextNodeName": "s7"
+			}
+		]
+	},{
+		"name": "s7",
+		"transitions": [
+			{
+				"type": "both",
+				"nextNodeName": "s6"
+			}
+		]
+	},{
+		"name": "s8",
+		"transitions": [
+			{
+				"type": "both",
+				"nextNodeName": "s5"
+			}
+		]
+	},{
+		"name": "s9",
+		"transitions": [
+			{
+				"type": "both",
+				"nextNodeName": "s5"
+			}
+		]
 	}
 ]
