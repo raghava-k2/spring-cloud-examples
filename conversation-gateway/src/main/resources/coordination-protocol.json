@@ -1,0 +1,24 @@
+[
+	{
+		"name": "s5",
+		"transitions": [
+			{
+				"type": "json",
+				"nextNodeName": "s3"
+			},
+			{
+				"type": "xml",
+				"nextNodeName": "s7"
+			}
+		]
+	},
+	{
+		"name": "s3",
+		"transitions":[
+			{
+				"type": "both",
+				"nextNodeName": "s10"
+			}
+		]
+	}
+]

@@ -23,4 +23,4 @@ logging:
     reactor.ipc.netty: DEBUG
     reactor.netty: DEBUG
 
-management:  endpoints:    web:      exposure:        include:        - '*'
+management:  endpoints:    web:      exposure:        include:        - '*'corordination:  protocol:    file:      location: coordination-protocol.json
