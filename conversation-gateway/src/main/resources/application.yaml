@@ -1,4 +1,4 @@
-spring:  application:    name: conversation-gateway
+spring:  application:    name: conversation-gateway  security:    user:      name: admin      password: admin
 server:
   port: 9001
 eureka:  instance:    instance-id: conversation-gateway    appname: conversation-gateway

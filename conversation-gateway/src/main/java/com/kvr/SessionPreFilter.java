@@ -63,7 +63,7 @@ public class SessionPreFilter extends ZuulFilter {
 				ProtocolTransition protocolTransition = protocolNode.getTransitions().get(0);
 				if (!protocolTransition.getNextNodeName().equalsIgnoreCase(currentEndpointName)) {
 					throw new ZuulException("violates the coordination protocol", 500,
-							"violates the coordination protocol");
+							"violates the coordination protocol.\nThe Next service should be "+protocolTransition.getNextNodeName());
 				}
 			} else {
 				Optional<ProtocolTransition> protocolTransition = protocolNode.getTransitions().stream()
@@ -71,11 +71,11 @@ public class SessionPreFilter extends ZuulFilter {
 				if (protocolTransition.isPresent()) {
 					if (!protocolTransition.get().getNextNodeName().equalsIgnoreCase(currentEndpointName)) {
 						throw new ZuulException("violates the coordination protocol", 500,
-								"violates the coordination protocol");
+								"violates the coordination protocol.\nThe Next service should be "+protocolTransition.get().getNextNodeName());
 					}
 				} else {
 					throw new ZuulException("violates the coordination protocol", 500,
-							"violates the coordination protocol");
+							"violates the coordination protocol.\nThe Next service should be "+protocolTransition.get().getNextNodeName());
 				}
 			}
 		}

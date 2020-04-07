@@ -4,6 +4,14 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
+<style type="text/css">
+input.error, select.error {
+	border-color: red;
+}
+#status{
+max-width:242px;
+}
+</style>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
 	integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
 	crossorigin="anonymous"></script>
@@ -19,16 +27,56 @@
 	crossorigin="anonymous"></script>
 <script type="text/javascript">
 $(document).ready(()=>{
+	const getFormatType=(str)=>{
+		const firstCharCode=str.toUpperCase().charCodeAt(0);
+		if(firstCharCode>=65 && firstCharCode<=77){
+		  return 'json';
+		}else{
+		  return 'xml';
+		}
+	};
+	const isValid=()=>{
+		const username=$('#username').val();
+		const selectedEndpoint=$('#selectEndpoint').val();
+		if(!username.trim().length){
+			$('#username').addClass('error');
+			return false;
+		}else if((selectedEndpoint == 0)){
+			$('#selectEndpoint').addClass('error');
+			return false;
+		}else{
+			$('#username').removeClass('error');
+			$('#selectEndpoint').removeClass('error');
+			return true;
+		}
+	};
 	$('#submit').on('click',()=>{
 		const username=$('#username').val();
 		const selectedEndpoint=$('#selectEndpoint').val();
-		$.get(`/messenger/api/v1/s${selectedEndpoint}`,(res,status)=>{
+		const format=getFormatType(username);
+		if(isValid()){
+		$.get(`/messenger/api/v1/s${selectedEndpoint}`,{name:username,format},(res,status)=>{
+			console.log(res)
 			if(status === 'success'){
-			   console.log(res,status);
-			}else{
-				console.error('error',res);
+				$('#callsInfo > tbody').append(`<tr><td>s${selectedEndpoint}</td>\
+						<td>${username}</td>\
+						<td>${new Date().toLocaleString()}</td>\
+						<td>${new Date(res.date).toLocaleString()}</td>\
+						<td>${format}</td>\
+						<td>success</td>\
+						</tr>`);
 			}
-		})
+		}).fail((error)=>{
+			const {responseJSON}=error;
+			$('#callsInfo > tbody').append(`<tr><td>s${selectedEndpoint}</td>\
+					<td>${username}</td>\
+					<td>${new Date().toLocaleString()}</td>\
+					<td>${new Date().toLocaleString()}</td>\
+					<td>-</td>\
+					<td id='status'>${responseJSON.message}</td>\
+					</tr>`);
+		});
+		}
 	});
 });
 </script>
@@ -54,7 +102,7 @@ $(document).ready(()=>{
 							Options</label>
 					</div>
 					<select class="custom-select" id="selectEndpoint">
-						<option selected>Choose...</option>
+						<option value="0" selected>Choose...</option>
 						<option value="1">s1</option>
 						<option value="2">s2</option>
 						<option value="3">s3</option>
@@ -70,6 +118,24 @@ $(document).ready(()=>{
 			</div>
 			<div class="col">
 				<button type="button" class="btn btn-primary" id="submit">Submit</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<table id="callsInfo" class="table table-dark">
+					<thead>
+						<tr>
+							<th>Service Name</th>
+							<th>User Name</th>
+							<th>Invocation DateTime</th>
+							<th>Response DateTime</th>
+							<th>Response Type</th>
+							<th>Status</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
