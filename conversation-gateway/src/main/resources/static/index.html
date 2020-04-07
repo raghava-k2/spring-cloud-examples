@@ -42,6 +42,7 @@ $(document).ready(()=>{
 			$('#username').addClass('error');
 			return false;
 		}else if((selectedEndpoint == 0)){
+			$('#username').removeClass('error');
 			$('#selectEndpoint').addClass('error');
 			return false;
 		}else{
@@ -50,18 +51,25 @@ $(document).ready(()=>{
 			return true;
 		}
 	};
+	const getResponseDateByType=(res,format)=>{
+		if(format === 'xml'){
+			const date=res.getElementsByTagName('user')[0].getElementsByTagName('date')[0].innerHTML;
+			return Date.parse(date);
+		}else{
+			return res.date;
+		}
+	}
 	$('#submit').on('click',()=>{
 		const username=$('#username').val();
 		const selectedEndpoint=$('#selectEndpoint').val();
 		const format=getFormatType(username);
 		if(isValid()){
 		$.get(`/messenger/api/v1/s${selectedEndpoint}`,{name:username,format},(res,status)=>{
-			console.log(res)
 			if(status === 'success'){
 				$('#callsInfo > tbody').append(`<tr><td>s${selectedEndpoint}</td>\
 						<td>${username}</td>\
 						<td>${new Date().toLocaleString()}</td>\
-						<td>${new Date(res.date).toLocaleString()}</td>\
+						<td>${new Date(getResponseDateByType(res,format)).toLocaleString()}</td>\
 						<td>${format}</td>\
 						<td>success</td>\
 						</tr>`);
