@@ -24,7 +24,7 @@ public class CoordinatioProtocol {
 
 	@PostConstruct
 	private void init() throws JsonParseException, JsonMappingException, IOException {
-		File file = new File(String.format("src/main/resources/%s", protocolFileLocation));
+		File file = new File(protocolFileLocation);
 		ObjectMapper mapper = new ObjectMapper();
 		protocolList = Stream.of(mapper.readValue(file, ProtocolNode[].class)).collect(Collectors.toList());
 	}

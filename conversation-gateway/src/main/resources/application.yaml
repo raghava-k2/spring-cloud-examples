@@ -23,4 +23,4 @@ logging:
     reactor.ipc.netty: DEBUG
     reactor.netty: DEBUG
 
-management:  endpoints:    web:      exposure:        include:        - '*'corordination:  protocol:    file:      location: coordination-protocol.json
+management:  endpoints:    web:      exposure:        include:        - '*'corordination:  protocol:    file:      location: D:\Workspace\java\spring-cloud-examples\coordination-protocol.json
